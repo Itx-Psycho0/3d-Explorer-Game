@@ -1,7 +1,8 @@
 extends CharacterBody3D
 
-const SPEED = 5.0
+var SPEED  := 5.0
 const JUMP_VELOCITY = 4.5
+const SPRINT_SPEED = 10.0
 
 # Mouse sensitivity
 const MOUSE_SENSITIVITY = 0.002
@@ -31,6 +32,12 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+
+	if Input.is_action_pressed("ui_shift"):
+		SPEED = SPRINT_SPEED
+		print("Sprinting")
+	else:
+		SPEED = 5.0
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
